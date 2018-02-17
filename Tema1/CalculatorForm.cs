@@ -12,7 +12,7 @@ namespace Tema1
 {
     public partial class CalculatorForm : Form
     {
-        private static Evaluator evaluator;
+        private static Evaluator evaluator = new Evaluator();
         
         public CalculatorForm()
         {

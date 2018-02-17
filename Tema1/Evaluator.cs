@@ -50,17 +50,23 @@ namespace Tema1
                 {
                     sb.Append(' ');
                     if (operatorPriorityInExpression[c] <= operatorPriorityInStack[operatorStack.Peek()])
+                    {
                         sb.Append(operatorStack.Pop());
+                        sb.Append(' ');
+                    }
+
                     operatorStack.Push(c);
-                    sb.Append(' ');
                 }
                 else if (c == ')')
                 {
                     sb.Append(' ');
                     while (operatorStack.Peek() != '(')
+                    {
                         sb.Append(operatorStack.Pop());
+                        sb.Append(' ');
+                    }
+
                     operatorStack.Pop();
-                    sb.Append(' ');
                 }
             }
 
@@ -68,6 +74,7 @@ namespace Tema1
             {
                 sb.Append(' ');
                 sb.Append(operatorStack.Pop());
+                sb.Append(' ');
             }
             return sb.ToString().Trim();
         }
