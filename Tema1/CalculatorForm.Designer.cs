@@ -51,7 +51,6 @@
             this.buttonDot = new System.Windows.Forms.Button();
             this.buttonBackspace = new System.Windows.Forms.Button();
             this.buttonEquals = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // calcBox
@@ -281,19 +280,11 @@
             this.buttonEquals.UseVisualStyleBackColor = true;
             this.buttonEquals.Click += new System.EventHandler(this.buttonEquals_click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(11, 216);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(214, 20);
-            this.textBox1.TabIndex = 23;
-            // 
             // CalculatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(237, 241);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonEquals);
             this.Controls.Add(this.buttonBackspace);
             this.Controls.Add(this.buttonDot);
@@ -349,7 +340,6 @@
         private System.Windows.Forms.Button buttonDot;
         private System.Windows.Forms.Button buttonBackspace;
         private System.Windows.Forms.Button buttonEquals;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

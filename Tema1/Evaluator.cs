@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Tema1
 {
-    public partial class CalculatorForm : Form
+    public class Evaluator
     {
         private static char GUARDIAN_OPERATION = '#';
         private static Dictionary<char, int> operatorPriorityInExpression = new Dictionary<char, int>()
@@ -30,29 +26,7 @@ namespace Tema1
             {'(', 0},
         };
 
-        private static char[] operators = {'+', '-', '*', '/', '^', '('};
-
-
-        public CalculatorForm()
-        {
-            InitializeComponent();
-        }
-
-        private void button_click(object sender, EventArgs e)
-        {
-            calcBox.Text += (sender as Button).Text;
-        }
-
-        private void buttonClear_click(object sender, EventArgs e)
-        {
-            calcBox.Text = "";
-        }
-
-        private void buttonBackspace_click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(calcBox.Text))
-                calcBox.Text = calcBox.Text.Remove(calcBox.Text.Length - 1);
-        }
+        private static char[] operators = { '+', '-', '*', '/', '^', '(' };
 
         private bool isOperator(char c)
         {
@@ -65,7 +39,7 @@ namespace Tema1
 
             Stack<char> operatorStack = new Stack<char>();
             operatorStack.Push(GUARDIAN_OPERATION);
-            
+
             foreach (char c in expr)
             {
                 if (Char.IsDigit(c) || c == '.')
@@ -78,6 +52,7 @@ namespace Tema1
                     if (operatorPriorityInExpression[c] <= operatorPriorityInStack[operatorStack.Peek()])
                         sb.Append(operatorStack.Pop());
                     operatorStack.Push(c);
+                    sb.Append(' ');
                 }
                 else if (c == ')')
                 {
@@ -85,6 +60,7 @@ namespace Tema1
                     while (operatorStack.Peek() != '(')
                         sb.Append(operatorStack.Pop());
                     operatorStack.Pop();
+                    sb.Append(' ');
                 }
             }
 
@@ -96,11 +72,11 @@ namespace Tema1
             return sb.ToString().Trim();
         }
 
-        private double eval(string postfix_repr)
+        private double computeResult(string postfix_repr)
         {
             double result = 0.0;
 
-            string[] tokens = postfix_repr.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            string[] tokens = postfix_repr.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             Stack<double> operandStack = new Stack<double>();
 
 
@@ -143,14 +119,12 @@ namespace Tema1
             return result;
         }
 
-        private void buttonEquals_click(object sender, EventArgs e)
+        public double eval(string infix_expr)
         {
-            string postfix_expr = postfix_representation(this.calcBox.Text);
-            double result = eval(postfix_expr);
+            string postfix_expr = postfix_representation(infix_expr);
+            double result = computeResult(postfix_expr);
 
-            this.calcBox.Text = result.ToString();
-            
-            this.textBox1.Text = postfix_expr;
+            return result;
         }
     }
 }
