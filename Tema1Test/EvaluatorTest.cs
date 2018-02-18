@@ -15,6 +15,19 @@ namespace Tema1Test
             Assert.AreEqual(6, evaluator.eval("1 + 2 +3"));
             Assert.AreEqual(2, evaluator.eval("(4 + 2 * 5) / (1 + 3 * 2)"));
             Assert.AreEqual(35.8, evaluator.eval("15 + 72 / (13 + 2) + 2^2^2"));
+            Assert.AreEqual(40, evaluator.eval("((((1 + 2) + 5*4 + 32/2 + 1)))"));
+        }
+
+        [TestMethod]
+        public void restEvalDivisionByZero()
+        {
+            const string divisionMsg = "Division by zero.";
+
+            Assert.AreEqual(double.NaN, evaluator.eval("1 / 0"));
+            Assert.AreEqual(divisionMsg, evaluator.getInvalidExpressionMessage());
+
+            Assert.AreEqual(double.NaN, evaluator.eval("1 / (2 - 2)"));
+            Assert.AreEqual(divisionMsg, evaluator.getInvalidExpressionMessage());
         }
     }
 }

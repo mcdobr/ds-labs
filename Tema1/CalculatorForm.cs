@@ -38,7 +38,14 @@ namespace Tema1
         private void buttonEquals_click(object sender, EventArgs e)
         {
             double result = evaluator.eval(this.calcBox.Text);
-            this.calcBox.Text = result.ToString();
+
+            string output;
+            if (result == double.NaN)
+                output = evaluator.getInvalidExpressionMessage();
+            else
+                output = result.ToString();
+
+            this.calcBox.Text = output;
         }
     }
 }
