@@ -14,7 +14,7 @@ namespace Tema1
         {
             {'#', -1},
             {'+', 1}, {'-', 1},
-            {'*', 2}, {'/', 2},
+            {'*', 2}, {'/', 2}, {'%', 2},
             {'^', 4},
             {'(', 5},
         };
@@ -22,12 +22,12 @@ namespace Tema1
         {
             {'#', -1},
             {'+', 1}, {'-', 1},
-            {'*', 2}, {'/', 2},
+            {'*', 2}, {'/', 2}, {'%', 2},
             {'^', 3},
             {'(', 0},
         };
 
-        private static readonly char[] operators = { '+', '-', '*', '/', '^', '(' };
+        private static readonly char[] operators = { '+', '-', '*', '/', '%', '^', '(' };
 
         private bool divisionByZeroFlag;
         private bool unmatchedParenthesesFlag;
@@ -143,6 +143,14 @@ namespace Tema1
                             if (Math.Abs(operandRight) < EPS)
                                 divisionByZeroFlag = true;
                             break;
+                        case '%':
+                            intermediary_res = operandLeft % operandRight;
+                            if (intermediary_res < 0)
+                                intermediary_res += operandRight;
+                            
+                            if (Math.Abs(operandRight) < EPS)
+                                divisionByZeroFlag = true;
+                            break;
                         case '^':
                             intermediary_res = Math.Pow(operandLeft, operandRight);
                             break;
@@ -152,7 +160,7 @@ namespace Tema1
                 }
                 else
                 {
-                    operandStack.Push(Double.Parse(token));
+                    operandStack.Push(double.Parse(token, System.Globalization.CultureInfo.InvariantCulture));
                 }
             }
             result = operandStack.Pop();
