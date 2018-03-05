@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncServer", "Lab2\Tema2\A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollabServer", "Lab3\Tema3\CollabServer\CollabServer.csproj", "{BBAD50A5-3C18-4FED-A949-33BF1A0BFCD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonCollab", "Lab3\Tema3\CollabCommon\CommonCollab.csproj", "{4EEF6D70-BD3B-4877-985A-593A14555CFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{BBAD50A5-3C18-4FED-A949-33BF1A0BFCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBAD50A5-3C18-4FED-A949-33BF1A0BFCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBAD50A5-3C18-4FED-A949-33BF1A0BFCD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEF6D70-BD3B-4877-985A-593A14555CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEF6D70-BD3B-4877-985A-593A14555CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEF6D70-BD3B-4877-985A-593A14555CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEF6D70-BD3B-4877-985A-593A14555CFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +81,6 @@ Global
 		{6FB23B66-CC8E-4CDB-B4A0-97A28A95D581} = {245E7664-AF6E-4063-982B-22B18162145F}
 		{CF77DA73-EF59-409A-9BF3-8E26451D2593} = {245E7664-AF6E-4063-982B-22B18162145F}
 		{BBAD50A5-3C18-4FED-A949-33BF1A0BFCD8} = {DAF70298-A4E4-4403-9A7A-4CE74F6FB92B}
+		{4EEF6D70-BD3B-4877-985A-593A14555CFB} = {DAF70298-A4E4-4403-9A7A-4CE74F6FB92B}
 	EndGlobalSection
 EndGlobal

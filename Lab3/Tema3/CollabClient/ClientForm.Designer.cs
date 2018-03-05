@@ -43,6 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox2.Location = new System.Drawing.Point(6, 19);
             this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
             this.richTextBox2.Size = new System.Drawing.Size(345, 516);
             this.richTextBox2.TabIndex = 2;
             this.richTextBox2.Text = "";
@@ -76,6 +77,7 @@
             this.commitButton.TabIndex = 1;
             this.commitButton.Text = "Commit";
             this.commitButton.UseVisualStyleBackColor = true;
+            this.commitButton.Click += new System.EventHandler(this.commitButton_Click);
             // 
             // paragraphBox
             // 
@@ -100,6 +102,7 @@
             this.Controls.Add(this.documentBox);
             this.Name = "ClientForm";
             this.Text = "Client";
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.documentBox.ResumeLayout(false);
             this.paragraphBox.ResumeLayout(false);
             this.ResumeLayout(false);
