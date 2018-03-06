@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.documentTextBox = new System.Windows.Forms.RichTextBox();
             this.documentBox = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.paragraphTextBox = new System.Windows.Forms.RichTextBox();
             this.commitButton = new System.Windows.Forms.Button();
             this.paragraphBox = new System.Windows.Forms.GroupBox();
             this.documentBox.SuspendLayout();
             this.paragraphBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // richTextBox2
+            // documentTextBox
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.documentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.Location = new System.Drawing.Point(6, 19);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(345, 516);
-            this.richTextBox2.TabIndex = 2;
-            this.richTextBox2.Text = "";
+            this.documentTextBox.Location = new System.Drawing.Point(6, 19);
+            this.documentTextBox.Name = "documentTextBox";
+            this.documentTextBox.ReadOnly = true;
+            this.documentTextBox.Size = new System.Drawing.Size(345, 516);
+            this.documentTextBox.TabIndex = 2;
+            this.documentTextBox.Text = "";
             // 
             // documentBox
             // 
             this.documentBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.documentBox.Controls.Add(this.richTextBox2);
+            this.documentBox.Controls.Add(this.documentTextBox);
             this.documentBox.Location = new System.Drawing.Point(12, 20);
             this.documentBox.Name = "documentBox";
             this.documentBox.Size = new System.Drawing.Size(357, 541);
@@ -61,13 +61,13 @@
             this.documentBox.TabStop = false;
             this.documentBox.Text = "Document";
             // 
-            // richTextBox1
+            // paragraphTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(6, 19);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(340, 481);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.paragraphTextBox.Location = new System.Drawing.Point(6, 19);
+            this.paragraphTextBox.Name = "paragraphTextBox";
+            this.paragraphTextBox.Size = new System.Drawing.Size(340, 481);
+            this.paragraphTextBox.TabIndex = 0;
+            this.paragraphTextBox.Text = "";
             // 
             // commitButton
             // 
@@ -85,7 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.paragraphBox.Controls.Add(this.commitButton);
-            this.paragraphBox.Controls.Add(this.richTextBox1);
+            this.paragraphBox.Controls.Add(this.paragraphTextBox);
             this.paragraphBox.Location = new System.Drawing.Point(377, 20);
             this.paragraphBox.Name = "paragraphBox";
             this.paragraphBox.Size = new System.Drawing.Size(352, 541);
@@ -102,7 +102,7 @@
             this.Controls.Add(this.documentBox);
             this.Name = "ClientForm";
             this.Text = "Client";
-            this.Load += new System.EventHandler(this.ClientForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.documentBox.ResumeLayout(false);
             this.paragraphBox.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -111,9 +111,9 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox documentTextBox;
         private System.Windows.Forms.GroupBox documentBox;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox paragraphTextBox;
         private System.Windows.Forms.Button commitButton;
         private System.Windows.Forms.GroupBox paragraphBox;
     }

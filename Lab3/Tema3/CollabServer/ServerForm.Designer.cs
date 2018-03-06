@@ -28,26 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox = new System.Windows.Forms.RichTextBox();
+            this.documentTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // textBox
+            // documentTextBox
             // 
-            this.textBox.Location = new System.Drawing.Point(12, 12);
-            this.textBox.Name = "textBox";
-            this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(260, 237);
-            this.textBox.TabIndex = 0;
-            this.textBox.Text = "";
+            this.documentTextBox.Location = new System.Drawing.Point(12, 12);
+            this.documentTextBox.Name = "documentTextBox";
+            this.documentTextBox.ReadOnly = true;
+            this.documentTextBox.Size = new System.Drawing.Size(359, 484);
+            this.documentTextBox.TabIndex = 0;
+            this.documentTextBox.Text = "";
             // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.textBox);
+            this.ClientSize = new System.Drawing.Size(383, 508);
+            this.Controls.Add(this.documentTextBox);
             this.Name = "ServerForm";
             this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.Load += new System.EventHandler(this.ServerForm_Load);
             this.ResumeLayout(false);
 
@@ -55,7 +56,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox textBox;
+        private System.Windows.Forms.RichTextBox documentTextBox;
     }
 }
 
