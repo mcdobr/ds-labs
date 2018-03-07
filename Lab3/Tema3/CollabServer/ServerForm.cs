@@ -95,6 +95,7 @@ namespace CollabServer
                 string line = (string)lineMessage.Body;
 
                 documentTextBox.AppendText(line);
+                broadcastCurrentState();
             }
             catch
             {

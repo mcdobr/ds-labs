@@ -35,15 +35,18 @@ namespace CollabClient
             connectMessage.Body = client.uuid;
 
             serverQueue.Send(connectMessage);
-
-            // TODO: Add parameters here
-            client.rxQueue.BeginReceive();
+            
+            client.rxQueue.BeginReceive(Client.maxLockTime, 
+                client,
+                new AsyncCallback(onAckReceived)
+            );
 
         }
 
         private void commitButton_Click(object sender, EventArgs e)
         {
             string text = paragraphTextBox.Text;
+            paragraphTextBox.Clear();
 
             Message msg = new Message();
             msg.Label = "Line";
@@ -59,6 +62,32 @@ namespace CollabClient
 
             client.txQueue.Close();
             MessageQueue.Delete(client.txQueue.Path);
+        }
+
+        private void onAckReceived(IAsyncResult asyncResult)
+        {
+            Client client = (Client)asyncResult.AsyncState;
+            try
+            {
+                Message msg = client.rxQueue.EndReceive(asyncResult);
+
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    documentTextBox.Clear();
+                    documentTextBox.AppendText((string)msg.Body);
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                client.rxQueue.BeginReceive(Client.maxLockTime,
+                    client,
+                    new AsyncCallback(onAckReceived)
+                );
+            }
         }
     }
 }
