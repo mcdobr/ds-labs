@@ -10,7 +10,7 @@ namespace CollabCommon
     public class Client
     {
         private const string prefix = @".\private$\";
-        public static TimeSpan maxLockTime = TimeSpan.FromMinutes(1);
+        public static TimeSpan maxLockTime = TimeSpan.FromMilliseconds(500);
         
         public readonly string uuid;
         public MessageQueue rxQueue, txQueue;

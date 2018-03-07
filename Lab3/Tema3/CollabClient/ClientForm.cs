@@ -20,38 +20,28 @@ namespace CollabClient
 
         private MessageQueue serverQueue;
         private Client client;
-        private string selectedLine = null;
 
         public ClientForm()
         {
             InitializeComponent();
-            
-            /* Initialize other stuff */
+        }
+        
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
             serverQueue = Util.getMessageQueueAtPath(serverQueuePath);
-            
+
             client = new Client();
             Message connectMessage = new Message();
             connectMessage.Label = "New user";
             connectMessage.Body = client.uuid;
 
             serverQueue.Send(connectMessage);
-            
-            client.rxQueue.BeginReceive(Client.maxLockTime, 
+
+            client.rxQueue.BeginReceive(Client.maxLockTime,
                 client,
-                new AsyncCallback(onAckReceived)
+                new AsyncCallback(onUpdateReceived)
             );
-        }
 
-        private void commitButton_Click(object sender, EventArgs e)
-        {
-            string text = paragraphTextBox.Text;
-            paragraphTextBox.Clear();
-
-            Message msg = new Message();
-            msg.Label = "Line";
-            msg.Body = text + Environment.NewLine;
-
-            client.txQueue.Send(msg);
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
@@ -63,49 +53,39 @@ namespace CollabClient
             MessageQueue.Delete(client.txQueue.Path);
         }
 
-        private void onAckReceived(IAsyncResult asyncResult)
+        private void onUpdateReceived(IAsyncResult asyncResult)
         {
             Client client = (Client)asyncResult.AsyncState;
             try
             {
                 Message msg = client.rxQueue.EndReceive(asyncResult);
 
+                documentTextBox.TextChanged -= documentTextBox_TextChanged;
+                documentTextBox.Text = (string)msg.Body;
+                documentTextBox.TextChanged += documentTextBox_TextChanged;
+                /*
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    documentTextBox.Clear();
-                    documentTextBox.AppendText((string)msg.Body);
-                });
+                });*/
             }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            catch
+            { }
             finally
             {
                 client.rxQueue.BeginReceive(Client.maxLockTime,
                     client,
-                    new AsyncCallback(onAckReceived)
+                    new AsyncCallback(onUpdateReceived)
                 );
             }
         }
 
-        private void selectLineButton_Click(object sender, EventArgs e)
+        private void documentTextBox_TextChanged(object sender, EventArgs e)
         {
-            // Highlight the selection
-            int start = documentTextBox.GetFirstCharIndexOfCurrentLine();
-            int line = documentTextBox.GetLineFromCharIndex(start);
-            int length = documentTextBox.Lines[line].Length;
+            Message msg = new Message();
+            msg.Label = "Update";
+            msg.Body = documentTextBox.Text;
 
-            // Reset all
-            documentTextBox.SelectAll();
-            documentTextBox.SelectionBackColor = documentTextBox.BackColor;
-
-            // Highlight the area
-            documentTextBox.Select(start, length);
-            documentTextBox.SelectionBackColor = Color.Aqua;
-
-            selectedLine = documentTextBox.Lines[line];
-            paragraphTextBox.Text = selectedLine;
+            client.txQueue.Send(msg);
         }
     }
 }

@@ -21,8 +21,6 @@ namespace CollabServer
 
         private MessageQueue serverQueue = Util.getMessageQueueAtPath(serverQueuePath);
         private List<Client> clients = new List<Client>();
-        private Dictionary<Client, int> lockedLine = new Dictionary<Client, int>();
-        private List<string> lines = new List<string>();
 
         public ServerForm()
         {
@@ -38,22 +36,23 @@ namespace CollabServer
 
         }
 
-        private void ackClientMessage(Client client)
+        private void updateClientMessage(Client client)
         {
             Message wholeDocument = new Message();
-            wholeDocument.Label = "Ack";
+            wholeDocument.Label = "Update";
             wholeDocument.Body = documentTextBox.Text;
 
             client.txQueue.Send(wholeDocument);
         }
 
-        private void broadcastCurrentState()
+        private void broadcastCurrentState(Client excludedClient)
         {
             clients.RemoveAll(client => !client.isConnected());
             
             foreach (Client client in clients)
             {
-                ackClientMessage(client);
+                if (client != excludedClient)
+                    updateClientMessage(client);
             }
         }
         
@@ -67,12 +66,12 @@ namespace CollabServer
 
                 // Create client and send the acknowledge 
                 Client client = new Client(clientUUID, true);
-                ackClientMessage(client);
+                updateClientMessage(client);
                 clients.Add(client);
 
                 client.rxQueue.BeginReceive(Client.maxLockTime,
                     client,
-                    new AsyncCallback(onLineReceived));
+                    new AsyncCallback(onMessageReceived));
             }
             catch
             { }
@@ -85,16 +84,21 @@ namespace CollabServer
             }
         }
 
-        private void onLineReceived(IAsyncResult asyncResult)
+        private void onMessageReceived(IAsyncResult asyncResult)
         {
             Client client = (Client)asyncResult.AsyncState;
             try
             {
-                Message lineMessage = client.rxQueue.EndReceive(asyncResult);
-                string line = (string)lineMessage.Body;
+                Message msg = client.rxQueue.EndReceive(asyncResult);
+                string text = (string)msg.Body;
 
-                documentTextBox.AppendText(line);
-                broadcastCurrentState();
+
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    documentTextBox.Text = (string)msg.Body;
+                    broadcastCurrentState(client);
+                });
+
             }
             catch
             {
@@ -104,7 +108,7 @@ namespace CollabServer
             {
                 client.rxQueue.BeginReceive(Client.maxLockTime,
                     client,
-                    new AsyncCallback(onLineReceived));
+                    new AsyncCallback(onMessageReceived));
             }
         }
 
