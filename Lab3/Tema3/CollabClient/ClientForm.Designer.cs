@@ -30,21 +30,21 @@
         {
             this.documentTextBox = new System.Windows.Forms.RichTextBox();
             this.documentBox = new System.Windows.Forms.GroupBox();
+            this.newlineButton = new System.Windows.Forms.Button();
             this.paragraphTextBox = new System.Windows.Forms.RichTextBox();
             this.commitButton = new System.Windows.Forms.Button();
             this.paragraphBox = new System.Windows.Forms.GroupBox();
+            this.selectLineButton = new System.Windows.Forms.Button();
             this.documentBox.SuspendLayout();
             this.paragraphBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // documentTextBox
             // 
-            this.documentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.documentTextBox.Location = new System.Drawing.Point(6, 19);
             this.documentTextBox.Name = "documentTextBox";
             this.documentTextBox.ReadOnly = true;
-            this.documentTextBox.Size = new System.Drawing.Size(345, 516);
+            this.documentTextBox.Size = new System.Drawing.Size(345, 481);
             this.documentTextBox.TabIndex = 2;
             this.documentTextBox.Text = "";
             // 
@@ -53,6 +53,8 @@
             this.documentBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.documentBox.Controls.Add(this.selectLineButton);
+            this.documentBox.Controls.Add(this.newlineButton);
             this.documentBox.Controls.Add(this.documentTextBox);
             this.documentBox.Location = new System.Drawing.Point(12, 20);
             this.documentBox.Name = "documentBox";
@@ -60,6 +62,15 @@
             this.documentBox.TabIndex = 3;
             this.documentBox.TabStop = false;
             this.documentBox.Text = "Document";
+            // 
+            // newlineButton
+            // 
+            this.newlineButton.Location = new System.Drawing.Point(276, 506);
+            this.newlineButton.Name = "newlineButton";
+            this.newlineButton.Size = new System.Drawing.Size(75, 23);
+            this.newlineButton.TabIndex = 3;
+            this.newlineButton.Text = "Newline";
+            this.newlineButton.UseVisualStyleBackColor = true;
             // 
             // paragraphTextBox
             // 
@@ -71,7 +82,7 @@
             // 
             // commitButton
             // 
-            this.commitButton.Location = new System.Drawing.Point(250, 506);
+            this.commitButton.Location = new System.Drawing.Point(271, 506);
             this.commitButton.Name = "commitButton";
             this.commitButton.Size = new System.Drawing.Size(75, 23);
             this.commitButton.TabIndex = 1;
@@ -92,6 +103,16 @@
             this.paragraphBox.TabIndex = 4;
             this.paragraphBox.TabStop = false;
             this.paragraphBox.Text = "Paragraph";
+            // 
+            // selectLineButton
+            // 
+            this.selectLineButton.Location = new System.Drawing.Point(195, 506);
+            this.selectLineButton.Name = "selectLineButton";
+            this.selectLineButton.Size = new System.Drawing.Size(75, 23);
+            this.selectLineButton.TabIndex = 4;
+            this.selectLineButton.Text = "Select Line";
+            this.selectLineButton.UseVisualStyleBackColor = true;
+            this.selectLineButton.Click += new System.EventHandler(this.selectLineButton_Click);
             // 
             // ClientForm
             // 
@@ -116,6 +137,8 @@
         private System.Windows.Forms.RichTextBox paragraphTextBox;
         private System.Windows.Forms.Button commitButton;
         private System.Windows.Forms.GroupBox paragraphBox;
+        private System.Windows.Forms.Button newlineButton;
+        private System.Windows.Forms.Button selectLineButton;
     }
 }
 

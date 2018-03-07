@@ -20,7 +20,7 @@ namespace CollabClient
 
         private MessageQueue serverQueue;
         private Client client;
-        private List<string> lines = new List<string>();
+        private string selectedLine = null;
 
         public ClientForm()
         {
@@ -40,7 +40,6 @@ namespace CollabClient
                 client,
                 new AsyncCallback(onAckReceived)
             );
-
         }
 
         private void commitButton_Click(object sender, EventArgs e)
@@ -88,6 +87,25 @@ namespace CollabClient
                     new AsyncCallback(onAckReceived)
                 );
             }
+        }
+
+        private void selectLineButton_Click(object sender, EventArgs e)
+        {
+            // Highlight the selection
+            int start = documentTextBox.GetFirstCharIndexOfCurrentLine();
+            int line = documentTextBox.GetLineFromCharIndex(start);
+            int length = documentTextBox.Lines[line].Length;
+
+            // Reset all
+            documentTextBox.SelectAll();
+            documentTextBox.SelectionBackColor = documentTextBox.BackColor;
+
+            // Highlight the area
+            documentTextBox.Select(start, length);
+            documentTextBox.SelectionBackColor = Color.Aqua;
+
+            selectedLine = documentTextBox.Lines[line];
+            paragraphTextBox.Text = selectedLine;
         }
     }
 }

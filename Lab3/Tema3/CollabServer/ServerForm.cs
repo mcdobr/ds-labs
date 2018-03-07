@@ -21,7 +21,7 @@ namespace CollabServer
 
         private MessageQueue serverQueue = Util.getMessageQueueAtPath(serverQueuePath);
         private List<Client> clients = new List<Client>();
-        //private Dictionary<Client, int> lockedLine = new Dictionary<Client, int>();
+        private Dictionary<Client, int> lockedLine = new Dictionary<Client, int>();
         private List<string> lines = new List<string>();
 
         public ServerForm()
@@ -87,7 +87,6 @@ namespace CollabServer
 
         private void onLineReceived(IAsyncResult asyncResult)
         {
-
             Client client = (Client)asyncResult.AsyncState;
             try
             {
