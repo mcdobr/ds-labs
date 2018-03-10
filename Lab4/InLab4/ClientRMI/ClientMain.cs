@@ -14,12 +14,14 @@ namespace MathClient
     {
         static void Main(string[] args)
         {
-            RemotingConfiguration.RegisterActivatedClientType(typeof(MathLibrary.Customer),
-          "http://localhost:10000");
-            // Calling a nondefault constructor. No exceptions now because
-            // Customer is a client-activated object.
-            Customer cust = new Customer("Homer");
-            Console.WriteLine(cust.SayHello());
+            RemotingConfiguration.Configure("../../Client.config");
+
+            SimpleMath math = new SimpleMath();
+
+            Console.WriteLine("5 + 2 = {0}", math.Add(5, 2));
+            Console.WriteLine("5 - 2 = {0}", math.Subtract(5,2));
+            // Ask user to press Enter
+            Console.Write("Press enter to end");
             Console.ReadLine();
         }
     }
