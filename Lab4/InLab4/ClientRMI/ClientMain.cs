@@ -12,6 +12,11 @@ namespace MathClient
 {
     class ClientMain
     {
+        static void printArray<T>(T[] array)
+        {
+            Console.WriteLine(string.Join(",", array));
+        }
+
         static void Main(string[] args)
         {
             RemotingConfiguration.Configure("../../Client.config");
@@ -20,6 +25,17 @@ namespace MathClient
 
             Console.WriteLine("5 + 2 = {0}", math.Add(5, 2));
             Console.WriteLine("5 - 2 = {0}", math.Subtract(5,2));
+
+            int[] v = new int[] { 2, 3, 1, 521, 23418, 4321, 152 };
+            int[] sorted = math.Sort<int>(v);
+
+            printArray(sorted);
+            
+            Console.WriteLine(math.IndexOf(v, 521));
+
+            int[] removedElem = math.RemoveElement(v, 23418);
+            printArray(removedElem);
+
             // Ask user to press Enter
             Console.Write("Press enter to end");
             Console.ReadLine();
