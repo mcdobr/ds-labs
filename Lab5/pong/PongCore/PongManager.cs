@@ -8,9 +8,25 @@ namespace PongCore
 {
     public class PongManager : MarshalByRefObject
     {
+        
+        public string connectPlayer()
+        {
+            string playerID = Guid.NewGuid().ToString();
+            // Add player to smth
+            return playerID;
+        }
+
+        public void disconnectPlayer()
+        {
+            // Remove player from smth
+        }
+
+
+
         public void says()
         {
             Console.WriteLine("ijreiwqjiorewjoq");
         }
+
     }
 }

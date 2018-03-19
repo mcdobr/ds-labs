@@ -37,7 +37,11 @@
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Name = "PongClientForm";
             this.Text = "Pong";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PongClientForm_FormClosing);
             this.Load += new System.EventHandler(this.PongClientForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PongClientForm_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PongClientForm_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PongClientForm_KeyUp);
             this.ResumeLayout(false);
 
         }

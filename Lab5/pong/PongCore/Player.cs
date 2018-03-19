@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace PongCore
 {
-    public struct Vector2
+    public class Player
     {
-        float x, y;
-    }
-
-    public class Ball
-    {
-        private Vector2 position, speed;
-
+        float positionY;
     }
 }

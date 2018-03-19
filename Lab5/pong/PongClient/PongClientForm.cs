@@ -15,8 +15,8 @@ namespace PongClient
 {
     public partial class PongClientForm : Form
     {
-        private Ball ball;
-        private Paddle leftPaddle, rightPaddle;
+        private Keys lastPressed = Keys.None;
+        private PongManager pongManager;
 
 
         public PongClientForm()
@@ -28,10 +28,34 @@ namespace PongClient
         {
             AllocConsole();
             RemotingConfiguration.Configure("PongClient.exe.config");
-
-            PongManager pongManager = new PongManager();
+            
+            pongManager = new PongManager();
+            pongManager.connectPlayer();
             pongManager.says();
 
+        }
+
+        private void PongClientForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            lastPressed = e.KeyCode;
+        }
+        
+        private void PongClientForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            lastPressed = Keys.None;
+        }
+        
+        private void PongClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            pongManager.disconnectPlayer();
+        }
+
+        private void PongClientForm_Paint(object sender, PaintEventArgs e)
+        {
+            SolidBrush blackBrush = new SolidBrush(Color.Black);
+            SolidBrush whiteBrush = new SolidBrush(Color.White);
+
+            e.Graphics.FillRectangle(blackBrush, 0, 0, this.Size.Width, this.Size.Height);
         }
 
         /* adaugat pt a vedea dacă se realizează remoting-ul calumea */
