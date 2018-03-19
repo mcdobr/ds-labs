@@ -1,6 +1,6 @@
 ﻿namespace PongClient
 {
-    partial class Form1
+    partial class PongClientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // PongClientForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Name = "PongClientForm";
+            this.Text = "Pong";
+            this.Load += new System.EventHandler(this.PongClientForm_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

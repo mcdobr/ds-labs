@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PongServer
+namespace PongCore
 {
-    class Program
+    public class PongManager : MarshalByRefObject
     {
-        static void Main(string[] args)
+        public void says()
         {
+            Console.WriteLine("ijreiwqjiorewjoq");
         }
     }
 }

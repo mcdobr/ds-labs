@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace PongCore
 {
-    public class Ball : MarshalByRefObject
+    public class Paddle : MarshalByRefObject
     {
-        public void says()
-        {
-            Console.WriteLine("ball says");
-        }
+        string name;
 
+        public void paddleSays()
+        {
+            Console.WriteLine("paddle says");
+        }
     }
 }
