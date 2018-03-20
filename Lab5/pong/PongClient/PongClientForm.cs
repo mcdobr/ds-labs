@@ -17,7 +17,7 @@ namespace PongClient
     {
         private Keys lastPressed = Keys.None;
         private PongManager pongManager;
-
+        private string clientID;
 
         public PongClientForm()
         {
@@ -30,9 +30,8 @@ namespace PongClient
             RemotingConfiguration.Configure("PongClient.exe.config");
             
             pongManager = new PongManager();
-            pongManager.connectPlayer();
-            pongManager.says();
-
+            clientID = pongManager.connectPlayer();
+            
         }
 
         private void PongClientForm_KeyUp(object sender, KeyEventArgs e)
@@ -47,7 +46,7 @@ namespace PongClient
         
         private void PongClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            pongManager.disconnectPlayer();
+            pongManager.disconnectPlayer(clientID);
         }
 
         private void PongClientForm_Paint(object sender, PaintEventArgs e)

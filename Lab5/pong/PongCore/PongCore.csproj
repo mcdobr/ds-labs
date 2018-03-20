@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PongManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
