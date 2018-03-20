@@ -15,9 +15,13 @@ namespace PongClient
 {
     public partial class PongClientForm : Form
     {
+        const int TIMER_INTERVAL = 20;
+
         private Keys lastPressed = Keys.None;
         private PongManager pongManager;
-        private string clientID;
+        private string playerID;
+        private PlayerSide playerSide;
+        private Timer gameClock;
 
         public PongClientForm()
         {
@@ -26,12 +30,15 @@ namespace PongClient
 
         private void PongClientForm_Load(object sender, EventArgs e)
         {
-            AllocConsole();
             RemotingConfiguration.Configure("PongClient.exe.config");
             
             pongManager = new PongManager();
-            clientID = pongManager.connectPlayer();
-            
+            playerID = pongManager.connectPlayer();
+            playerSide = pongManager.getPlayerSide(playerID);
+
+            gameClock = new Timer();
+            gameClock.Interval = TIMER_INTERVAL;
+            gameClock.Tick += onGameClockTick;
         }
 
         private void PongClientForm_KeyUp(object sender, KeyEventArgs e)
@@ -46,7 +53,7 @@ namespace PongClient
         
         private void PongClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            pongManager.disconnectPlayer(clientID);
+            pongManager.disconnectPlayer(playerID);
         }
 
         private void PongClientForm_Paint(object sender, PaintEventArgs e)
@@ -57,10 +64,12 @@ namespace PongClient
             e.Graphics.FillRectangle(blackBrush, 0, 0, this.Size.Width, this.Size.Height);
         }
 
-        /* adaugat pt a vedea dacă se realizează remoting-ul calumea */
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool AllocConsole();
+        private void onGameClockTick(object sender, EventArgs e)
+        {
+            // coordinates = pongManager.getCoords();
+            pongManager.getCoordinates(playerID);
 
+            this.Invalidate();
+        }
     }
 }

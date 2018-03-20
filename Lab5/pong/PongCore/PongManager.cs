@@ -72,5 +72,20 @@ namespace PongCore
                 players.Remove(player);
             }
         }
+
+        public PlayerSide getPlayerSide(string playerID)
+        {
+            int playerIndex = players.FindIndex(p => p.id == playerID);
+            if (playerIndex == -1)
+                return PlayerSide.NONE;
+
+            Player player = players.ElementAt(playerIndex);
+            return (player == player.room.leftPlayer) ? PlayerSide.LEFT : PlayerSide.RIGHT;
+        }
+
+        public void getCoordinates(string playerID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

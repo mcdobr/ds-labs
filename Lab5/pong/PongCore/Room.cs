@@ -2,7 +2,11 @@
 {
     public class Room
     {
-        Player leftPlayer, rightPlayer;
+        public Player leftPlayer
+        { get; set; }
+
+        public Player rightPlayer
+        { get; set; }
         
         public Room()
         {
