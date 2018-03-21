@@ -68,7 +68,6 @@ namespace PongCore
                 // No clearing of empty rooms needed for this. At least yet
 
                 player.room = null;
-
                 players.Remove(player);
             }
         }
@@ -83,9 +82,20 @@ namespace PongCore
             return (player == player.room.leftPlayer) ? PlayerSide.LEFT : PlayerSide.RIGHT;
         }
 
-        public void getCoordinates(string playerID)
+        public RoomInfo getRoomCoords(string playerID)
         {
-            throw new NotImplementedException();
+            int playerIndex = players.FindIndex(p => p.id == playerID);
+            if (playerIndex == -1)
+                return null;
+
+            Player player = players.ElementAt(playerIndex);
+            return player.room.getCoords();
+        }
+
+        public RoomInfo updateEntityCoordinates(string playerID)
+        {
+            RoomInfo coords = getRoomCoords(playerID);
+            return coords;
         }
     }
 }

@@ -1,7 +1,11 @@
-﻿namespace PongCore
+﻿using System;
+
+namespace PongCore
 {
     public class Room
     {
+        private RoomInfo coords;
+
         public Player leftPlayer
         { get; set; }
 
@@ -11,6 +15,7 @@
         public Room()
         {
             leftPlayer = rightPlayer = null;
+            coords = new RoomInfo();
         }
 
         public bool hasOpenSpot()
@@ -32,6 +37,11 @@
                 leftPlayer = null;
             if (rightPlayer == player)
                 rightPlayer = null;
+        }
+
+        internal RoomInfo getCoords()
+        {
+            return coords;
         }
     }
 }

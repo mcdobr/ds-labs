@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace PongCore
 {
+    [Serializable]
     public struct Vector2
     {
-        float x, y;
+        public float x, y;
+
+        public Vector2(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     public class Ball
