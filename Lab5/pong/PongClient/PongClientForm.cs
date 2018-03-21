@@ -15,9 +15,9 @@ namespace PongClient
 {
     public partial class PongClientForm : Form
     {
-        const int TIMER_INTERVAL = 20;
-
-        private Keys lastPressed = Keys.None;
+        const int TIMER_INTERVAL = 30;
+        
+        private PlayerMovement lastMovement = PlayerMovement.NONE;
         private PongManager pongManager;
         private string playerID;
         private PlayerSide playerSide;
@@ -44,17 +44,34 @@ namespace PongClient
             gameClock = new Timer();
             gameClock.Interval = TIMER_INTERVAL;
             gameClock.Tick += onGameClockTick;
-
+            gameClock.Start();
         }
 
         private void PongClientForm_KeyUp(object sender, KeyEventArgs e)
         {
-            lastPressed = e.KeyCode;
+            if (playerSide == PlayerSide.LEFT)
+            {
+                if (e.KeyCode == Keys.A)
+                    lastMovement = PlayerMovement.UP;
+                else if (e.KeyCode == Keys.D)
+                    lastMovement = PlayerMovement.DOWN;
+                else
+                    lastMovement = PlayerMovement.NONE;
+            }
+            else if (playerSide == PlayerSide.RIGHT)
+            {
+                if (e.KeyCode == Keys.Right)
+                    lastMovement = PlayerMovement.UP;
+                else if (e.KeyCode == Keys.Left)
+                    lastMovement = PlayerMovement.DOWN;
+                else
+                    lastMovement = PlayerMovement.NONE;
+            }
         }
         
         private void PongClientForm_KeyDown(object sender, KeyEventArgs e)
         {
-            lastPressed = Keys.None;
+            lastMovement = PlayerMovement.NONE;
         }
         
         private void PongClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -81,7 +98,7 @@ namespace PongClient
         private void onGameClockTick(object sender, EventArgs e)
         {
             // coordinates = pongManager.getCoords();
-            coords = pongManager.updateEntityCoordinates(playerID);
+            coords = pongManager.updateEntityCoordinates(playerID, lastMovement);
 
             this.Invalidate();
         }

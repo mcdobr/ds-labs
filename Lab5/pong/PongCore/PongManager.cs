@@ -92,9 +92,39 @@ namespace PongCore
             return player.room.getCoords();
         }
 
-        public RoomInfo updateEntityCoordinates(string playerID)
+        private Player getPlayerByID(string playerID)
+        {
+            int playerIndex = players.FindIndex(p => p.id == playerID);
+            if (playerIndex == -1)
+                return null;
+
+            Player player = players.ElementAt(playerIndex);
+            return player;
+        }
+
+        public RoomInfo updateEntityCoordinates(string playerID, PlayerMovement playerMovement)
         {
             RoomInfo coords = getRoomCoords(playerID);
+
+            if (playerMovement != PlayerMovement.NONE)
+            {
+                Player player = getPlayerByID(playerID);
+
+                if (playerMovement == PlayerMovement.UP)
+                {
+                    if (player.side == PlayerSide.LEFT)
+                        coords.leftPaddleCoords -= RoomInfo.dPaddle;
+                    else if (player.side == PlayerSide.RIGHT)
+                        coords.rightPaddleCoords -= RoomInfo.dPaddle;
+                }
+                else
+                {
+                    if (player.side == PlayerSide.LEFT)
+                        coords.leftPaddleCoords += RoomInfo.dPaddle;
+                    else if (player.side == PlayerSide.RIGHT)
+                        coords.rightPaddleCoords += RoomInfo.dPaddle;
+                }
+            }
             return coords;
         }
     }

@@ -26,9 +26,15 @@ namespace PongCore
         public void assignPlayer(Player player)
         {
             if (leftPlayer == null)
+            {
                 leftPlayer = player;
+                player.side = PlayerSide.LEFT;
+            }
             else
+            {
                 rightPlayer = player;
+                player.side = PlayerSide.RIGHT;
+            }
         }
 
         public void removePlayer(Player player)

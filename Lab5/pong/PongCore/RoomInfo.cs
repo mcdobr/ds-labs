@@ -23,6 +23,9 @@ namespace PongCore
         public const int DEFAULT_BALL_X_POSITION = (GAME_WIDTH - BALL_SIDE_LENGTH) / 2;
         public const int DEFAULT_BALL_Y_POSITION = (GAME_HEIGHT - BALL_SIDE_LENGTH) / 2;
 
+        public static readonly Vector2 dPaddle = new Vector2(0, 2);
+
+
         public Vector2 leftPaddleCoords, rightPaddleCoords;
         public Vector2 ballPosition;
 

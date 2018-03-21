@@ -22,19 +22,19 @@ namespace PongCore
     
     public class Player
     {
-        const float DEFAULT_VERTICAL_POSITION = 300;
-        const float DEFAULT_LEFT_POSITION = 25;
-        const float DEFAULT_RIGHT_POSITION = 575;
-
         public readonly string id;
         float positionY;
 
         public Room room
         { get; set; }
 
+        public PlayerSide side
+        { get; set; }
+
         public Player(string id)
         {
             this.id = id;
+            this.side = PlayerSide.NONE;
         }
     }
 }
