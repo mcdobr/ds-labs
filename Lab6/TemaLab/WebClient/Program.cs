@@ -1,16 +1,26 @@
 ﻿using System;
-
-
+using WebClient.localhost;
 namespace WebClient
 {
     class Program
     {
         static void Main(string[] args)
         {
-            EmployeeService myWebService = new EmployeeService();
-            Console.WriteLine("2 + 3 = {0}", myWebService.add(2, 3));
+            EmployeeService employeeService = new EmployeeService();
+            employeeService.CookieContainer = new System.Net.CookieContainer();
 
-            myWebService.getEmployee(2);
+
+            Employee ex = employeeService.hireEmployee("mircea dobreanu", "123123");
+            employeeService.hireEmployee("barack obama", "374365643");
+            employeeService.hireEmployee("madonna", "541343");
+            
+            
+
+            Employee[] emp = employeeService.getAllEmployees();
+            foreach (Employee e in emp)
+            {
+                Console.WriteLine(e.id + " " + e.name);
+            }
         }
     }
 }

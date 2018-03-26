@@ -1,40 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="add">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="addManager">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="n1" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="n2" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="e" type="tns:Employee" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="addResponse">
+      <s:complexType name="Employee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ssn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manager" type="tns:Employee" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subordinates" type="tns:ArrayOfEmployee" />
+        </s:sequence>
+        <s:attribute name="id" type="s1:guid" use="required" />
+      </s:complexType>
+      <s:complexType name="ArrayOfEmployee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Employee" nillable="true" type="tns:Employee" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="addManagerResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="addEmployee">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="addResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="manager" type="tns:Employee" />
+            <s:element minOccurs="0" maxOccurs="1" name="employee" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addEmployeeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="getManagerOf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employee" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getManagerOfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getManagerOfResult" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEmployeesOf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="manager" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEmployeesOfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getEmployeesOfResult" type="tns:ArrayOfEmployee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllEmployees">
+        <s:complexType />
+      </s:element>
+      <s:element name="getAllEmployeesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllEmployeesResult" type="tns:ArrayOfEmployee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="hireEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ssn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="hireEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="hireEmployeeResult" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ssn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createEmployeeResult" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="stringifyEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employee" type="tns:Employee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="stringifyEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="stringifyEmployeeResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
     </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
   </wsdl:types>
-  <wsdl:message name="addSoapIn">
-    <wsdl:part name="parameters" element="tns:add" />
+  <wsdl:message name="addManagerSoapIn">
+    <wsdl:part name="parameters" element="tns:addManager" />
   </wsdl:message>
-  <wsdl:message name="addSoapOut">
-    <wsdl:part name="parameters" element="tns:addResponse" />
+  <wsdl:message name="addManagerSoapOut">
+    <wsdl:part name="parameters" element="tns:addManagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="addEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:addEmployee" />
+  </wsdl:message>
+  <wsdl:message name="addEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:addEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getManagerOfSoapIn">
+    <wsdl:part name="parameters" element="tns:getManagerOf" />
+  </wsdl:message>
+  <wsdl:message name="getManagerOfSoapOut">
+    <wsdl:part name="parameters" element="tns:getManagerOfResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEmployeesOfSoapIn">
+    <wsdl:part name="parameters" element="tns:getEmployeesOf" />
+  </wsdl:message>
+  <wsdl:message name="getEmployeesOfSoapOut">
+    <wsdl:part name="parameters" element="tns:getEmployeesOfResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllEmployeesSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllEmployees" />
+  </wsdl:message>
+  <wsdl:message name="getAllEmployeesSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllEmployeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="hireEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:hireEmployee" />
+  </wsdl:message>
+  <wsdl:message name="hireEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:hireEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="createEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:createEmployee" />
+  </wsdl:message>
+  <wsdl:message name="createEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:createEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="stringifyEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:stringifyEmployee" />
+  </wsdl:message>
+  <wsdl:message name="stringifyEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:stringifyEmployeeResponse" />
   </wsdl:message>
   <wsdl:portType name="EmployeeServiceSoap">
-    <wsdl:operation name="add">
-      <wsdl:input message="tns:addSoapIn" />
-      <wsdl:output message="tns:addSoapOut" />
+    <wsdl:operation name="addManager">
+      <wsdl:input message="tns:addManagerSoapIn" />
+      <wsdl:output message="tns:addManagerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addEmployee">
+      <wsdl:input message="tns:addEmployeeSoapIn" />
+      <wsdl:output message="tns:addEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getManagerOf">
+      <wsdl:input message="tns:getManagerOfSoapIn" />
+      <wsdl:output message="tns:getManagerOfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeesOf">
+      <wsdl:input message="tns:getEmployeesOfSoapIn" />
+      <wsdl:output message="tns:getEmployeesOfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployees">
+      <wsdl:input message="tns:getAllEmployeesSoapIn" />
+      <wsdl:output message="tns:getAllEmployeesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="hireEmployee">
+      <wsdl:input message="tns:hireEmployeeSoapIn" />
+      <wsdl:output message="tns:hireEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createEmployee">
+      <wsdl:input message="tns:createEmployeeSoapIn" />
+      <wsdl:output message="tns:createEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="stringifyEmployee">
+      <wsdl:input message="tns:stringifyEmployeeSoapIn" />
+      <wsdl:output message="tns:stringifyEmployeeSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="EmployeeServiceSoap" type="tns:EmployeeServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="add">
-      <soap:operation soapAction="http://tempuri.org/add" style="document" />
+    <wsdl:operation name="addManager">
+      <soap:operation soapAction="http://tempuri.org/addManager" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployee">
+      <soap:operation soapAction="http://tempuri.org/addEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getManagerOf">
+      <soap:operation soapAction="http://tempuri.org/getManagerOf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeesOf">
+      <soap:operation soapAction="http://tempuri.org/getEmployeesOf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployees">
+      <soap:operation soapAction="http://tempuri.org/getAllEmployees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hireEmployee">
+      <soap:operation soapAction="http://tempuri.org/hireEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEmployee">
+      <soap:operation soapAction="http://tempuri.org/createEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stringifyEmployee">
+      <soap:operation soapAction="http://tempuri.org/stringifyEmployee" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -45,8 +288,71 @@
   </wsdl:binding>
   <wsdl:binding name="EmployeeServiceSoap12" type="tns:EmployeeServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="add">
-      <soap12:operation soapAction="http://tempuri.org/add" style="document" />
+    <wsdl:operation name="addManager">
+      <soap12:operation soapAction="http://tempuri.org/addManager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployee">
+      <soap12:operation soapAction="http://tempuri.org/addEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getManagerOf">
+      <soap12:operation soapAction="http://tempuri.org/getManagerOf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeesOf">
+      <soap12:operation soapAction="http://tempuri.org/getEmployeesOf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployees">
+      <soap12:operation soapAction="http://tempuri.org/getAllEmployees" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hireEmployee">
+      <soap12:operation soapAction="http://tempuri.org/hireEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEmployee">
+      <soap12:operation soapAction="http://tempuri.org/createEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stringifyEmployee">
+      <soap12:operation soapAction="http://tempuri.org/stringifyEmployee" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
