@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatClient.localhost;
+using System.Text.RegularExpressions;
 
 namespace ChatClient
 {
@@ -56,7 +57,7 @@ namespace ChatClient
                 }
                 else
                 {
-                    MessageBox.Show("Username taken!");
+                    MessageBox.Show("Username invalid or taken!");
                 }
             }
             else
@@ -71,9 +72,18 @@ namespace ChatClient
             ChatMessage msg = new ChatMessage();
             msg.Sender = username;
             msg.Receiver = null;
-            msg.Content = messageBox.Text;
+            msg.Content = messageBox.Text.Trim();
 
-            chatService.broadcastMessage(msg);
+            Match match = Regex.Match(msg.Content, "^@[a-zA-Z]+");
+            if (match.Value != string.Empty)
+            { 
+                msg.Receiver = match.Value.Trim().Substring(1);
+                msg.Content = msg.Content.Substring(match.Value.Length).Trim();
+
+                chatService.sendPrivateMessage(msg);
+            }
+            else
+                chatService.broadcastMessage(msg);
 
             messageBox.Text = string.Empty;
         }
@@ -84,7 +94,7 @@ namespace ChatClient
 
             foreach (ChatMessage msg in arr)
             {
-                chatBox.AppendText(msg.Content);
+                chatBox.AppendText(string.Format("[{0}]: {1}{2}", msg.Sender, msg.Content, Environment.NewLine));
             }
         }
     }

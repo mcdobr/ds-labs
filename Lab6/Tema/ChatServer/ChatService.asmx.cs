@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 
@@ -29,6 +30,9 @@ namespace ChatServer
         {
             var users = Application["users"] as List<string>;
             if (users.Contains(username))
+                return false;
+
+            if (!Regex.IsMatch(username, "^[a-zA-Z]+"))
                 return false;
 
             users.Add(username);
@@ -64,9 +68,12 @@ namespace ChatServer
         {
             var userMessageQueues = Application["userMessageQueues"] as Dictionary<string, Queue<ChatMessage>>;
 
+            var senderQueue = userMessageQueues[msg.Sender];
+            senderQueue.Enqueue(msg);
+
             // Receiver could be null. must check
-            var queue = userMessageQueues[msg.Receiver];
-            queue.Enqueue(msg);
+            var receiverQueue = userMessageQueues[msg.Receiver];
+            receiverQueue.Enqueue(msg);
         }
 
         // Can't use queue for some reason
