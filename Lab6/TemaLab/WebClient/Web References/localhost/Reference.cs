@@ -39,11 +39,9 @@ namespace WebClient.localhost {
         
         private System.Threading.SendOrPostCallback getAllEmployeesOperationCompleted;
         
-        private System.Threading.SendOrPostCallback hireEmployeeOperationCompleted;
-        
         private System.Threading.SendOrPostCallback createEmployeeOperationCompleted;
         
-        private System.Threading.SendOrPostCallback stringifyEmployeeOperationCompleted;
+        private System.Threading.SendOrPostCallback wasCycleOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -99,13 +97,10 @@ namespace WebClient.localhost {
         public event getAllEmployeesCompletedEventHandler getAllEmployeesCompleted;
         
         /// <remarks/>
-        public event hireEmployeeCompletedEventHandler hireEmployeeCompleted;
-        
-        /// <remarks/>
         public event createEmployeeCompletedEventHandler createEmployeeCompleted;
         
         /// <remarks/>
-        public event stringifyEmployeeCompletedEventHandler stringifyEmployeeCompleted;
+        public event wasCycleCompletedEventHandler wasCycleCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/addManager", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -251,37 +246,6 @@ namespace WebClient.localhost {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/hireEmployee", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Employee hireEmployee(string name, string ssn) {
-            object[] results = this.Invoke("hireEmployee", new object[] {
-                        name,
-                        ssn});
-            return ((Employee)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void hireEmployeeAsync(string name, string ssn) {
-            this.hireEmployeeAsync(name, ssn, null);
-        }
-        
-        /// <remarks/>
-        public void hireEmployeeAsync(string name, string ssn, object userState) {
-            if ((this.hireEmployeeOperationCompleted == null)) {
-                this.hireEmployeeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnhireEmployeeOperationCompleted);
-            }
-            this.InvokeAsync("hireEmployee", new object[] {
-                        name,
-                        ssn}, this.hireEmployeeOperationCompleted, userState);
-        }
-        
-        private void OnhireEmployeeOperationCompleted(object arg) {
-            if ((this.hireEmployeeCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.hireEmployeeCompleted(this, new hireEmployeeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/createEmployee", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public Employee createEmployee(string name, string ssn) {
             object[] results = this.Invoke("createEmployee", new object[] {
@@ -313,31 +277,29 @@ namespace WebClient.localhost {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/stringifyEmployee", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string stringifyEmployee(Employee employee) {
-            object[] results = this.Invoke("stringifyEmployee", new object[] {
-                        employee});
-            return ((string)(results[0]));
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wasCycle", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool wasCycle() {
+            object[] results = this.Invoke("wasCycle", new object[0]);
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void stringifyEmployeeAsync(Employee employee) {
-            this.stringifyEmployeeAsync(employee, null);
+        public void wasCycleAsync() {
+            this.wasCycleAsync(null);
         }
         
         /// <remarks/>
-        public void stringifyEmployeeAsync(Employee employee, object userState) {
-            if ((this.stringifyEmployeeOperationCompleted == null)) {
-                this.stringifyEmployeeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnstringifyEmployeeOperationCompleted);
+        public void wasCycleAsync(object userState) {
+            if ((this.wasCycleOperationCompleted == null)) {
+                this.wasCycleOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwasCycleOperationCompleted);
             }
-            this.InvokeAsync("stringifyEmployee", new object[] {
-                        employee}, this.stringifyEmployeeOperationCompleted, userState);
+            this.InvokeAsync("wasCycle", new object[0], this.wasCycleOperationCompleted, userState);
         }
         
-        private void OnstringifyEmployeeOperationCompleted(object arg) {
-            if ((this.stringifyEmployeeCompleted != null)) {
+        private void OnwasCycleOperationCompleted(object arg) {
+            if ((this.wasCycleCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.stringifyEmployeeCompleted(this, new stringifyEmployeeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.wasCycleCompleted(this, new wasCycleCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -372,10 +334,6 @@ namespace WebClient.localhost {
         
         private string ssnField;
         
-        private Employee managerField;
-        
-        private Employee[] subordinatesField;
-        
         private System.Guid idField;
         
         /// <remarks/>
@@ -395,26 +353,6 @@ namespace WebClient.localhost {
             }
             set {
                 this.ssnField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Employee Manager {
-            get {
-                return this.managerField;
-            }
-            set {
-                this.managerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Employee[] Subordinates {
-            get {
-                return this.subordinatesField;
-            }
-            set {
-                this.subordinatesField = value;
             }
         }
         
@@ -518,32 +456,6 @@ namespace WebClient.localhost {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
-    public delegate void hireEmployeeCompletedEventHandler(object sender, hireEmployeeCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class hireEmployeeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal hireEmployeeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public Employee Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((Employee)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void createEmployeeCompletedEventHandler(object sender, createEmployeeCompletedEventArgs e);
     
     /// <remarks/>
@@ -570,26 +482,26 @@ namespace WebClient.localhost {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
-    public delegate void stringifyEmployeeCompletedEventHandler(object sender, stringifyEmployeeCompletedEventArgs e);
+    public delegate void wasCycleCompletedEventHandler(object sender, wasCycleCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class stringifyEmployeeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class wasCycleCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal stringifyEmployeeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal wasCycleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public string Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((bool)(this.results[0]));
             }
         }
     }
