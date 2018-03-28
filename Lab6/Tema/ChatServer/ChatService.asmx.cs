@@ -67,13 +67,14 @@ namespace ChatServer
         public void sendPrivateMessage(ChatMessage msg)
         {
             var userMessageQueues = Application["userMessageQueues"] as Dictionary<string, Queue<ChatMessage>>;
-
             var senderQueue = userMessageQueues[msg.Sender];
-            senderQueue.Enqueue(msg);
-
-            // Receiver could be null. must check
-            var receiverQueue = userMessageQueues[msg.Receiver];
-            receiverQueue.Enqueue(msg);
+            
+            Queue<ChatMessage> receiverQueue;
+            if (userMessageQueues.TryGetValue(msg.Receiver, out receiverQueue))
+            {
+                senderQueue.Enqueue(msg);
+                receiverQueue.Enqueue(msg);
+            }
         }
 
         // Can't use queue for some reason

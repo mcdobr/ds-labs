@@ -51,10 +51,12 @@
             // 
             this.messageBox.Enabled = false;
             this.messageBox.Location = new System.Drawing.Point(12, 233);
+            this.messageBox.Multiline = false;
             this.messageBox.Name = "messageBox";
             this.messageBox.Size = new System.Drawing.Size(400, 116);
             this.messageBox.TabIndex = 1;
             this.messageBox.Text = "";
+            this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
             // 
             // userGroupBox
             // 

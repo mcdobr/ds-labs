@@ -97,5 +97,13 @@ namespace ChatClient
                 chatBox.AppendText(string.Format("[{0}]: {1}{2}", msg.Sender, msg.Content, Environment.NewLine));
             }
         }
+
+        private void messageBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                sendButton_Click(sender, e);
+            }
+        }
     }
 }
