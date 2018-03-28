@@ -35,7 +35,10 @@
             this.userBox = new System.Windows.Forms.TextBox();
             this.userLabel = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Button();
+            this.timerIntervalNumeric = new System.Windows.Forms.NumericUpDown();
+            this.timerLabel = new System.Windows.Forms.Label();
             this.userGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timerIntervalNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // chatBox
@@ -60,18 +63,20 @@
             // 
             // userGroupBox
             // 
+            this.userGroupBox.Controls.Add(this.timerLabel);
+            this.userGroupBox.Controls.Add(this.timerIntervalNumeric);
             this.userGroupBox.Controls.Add(this.connectButton);
             this.userGroupBox.Controls.Add(this.userBox);
             this.userGroupBox.Controls.Add(this.userLabel);
             this.userGroupBox.Location = new System.Drawing.Point(418, 12);
             this.userGroupBox.Name = "userGroupBox";
-            this.userGroupBox.Size = new System.Drawing.Size(154, 86);
+            this.userGroupBox.Size = new System.Drawing.Size(154, 121);
             this.userGroupBox.TabIndex = 2;
             this.userGroupBox.TabStop = false;
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(62, 55);
+            this.connectButton.Location = new System.Drawing.Point(54, 81);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
             this.connectButton.TabIndex = 2;
@@ -106,6 +111,32 @@
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
+            // timerIntervalNumeric
+            // 
+            this.timerIntervalNumeric.Location = new System.Drawing.Point(54, 55);
+            this.timerIntervalNumeric.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.timerIntervalNumeric.Name = "timerIntervalNumeric";
+            this.timerIntervalNumeric.Size = new System.Drawing.Size(90, 20);
+            this.timerIntervalNumeric.TabIndex = 3;
+            this.timerIntervalNumeric.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // timerLabel
+            // 
+            this.timerLabel.AutoSize = true;
+            this.timerLabel.Location = new System.Drawing.Point(6, 57);
+            this.timerLabel.Name = "timerLabel";
+            this.timerLabel.Size = new System.Drawing.Size(41, 13);
+            this.timerLabel.TabIndex = 4;
+            this.timerLabel.Text = "interval";
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -121,6 +152,7 @@
             this.Load += new System.EventHandler(this.ClientForm_Load);
             this.userGroupBox.ResumeLayout(false);
             this.userGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timerIntervalNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -134,6 +166,8 @@
         private System.Windows.Forms.TextBox userBox;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Button sendButton;
+        private System.Windows.Forms.NumericUpDown timerIntervalNumeric;
+        private System.Windows.Forms.Label timerLabel;
     }
 }
 

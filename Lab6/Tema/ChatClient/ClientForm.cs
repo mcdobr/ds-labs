@@ -52,7 +52,7 @@ namespace ChatClient
                     // Now start the timer
                     updateMessagesTimer = new Timer();
                     updateMessagesTimer.Tick += UpdateMessagesTimer_Tick;
-                    updateMessagesTimer.Interval = 25;
+                    updateMessagesTimer.Interval = (int)timerIntervalNumeric.Value;
                     updateMessagesTimer.Start();
                 }
                 else
