@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,6 +10,8 @@ namespace ParallelAdds
 {
     class Program
     {
+        private static readonly StreamWriter streamWriter = new StreamWriter(new MemoryStream());
+
         static void Main(string[] args)
         {
             int[] v = new int[1000];
@@ -17,15 +20,17 @@ namespace ParallelAdds
             Random rng = new Random();
             for (int i = 0; i < v.Length; ++i)
                 v[i] = rng.Next(0xFFFF);
+            Console.WriteLine(v.Sum());
 
+            int iter = 0;
             while (v.Length > 1)
             {
-                int[] next = new int[v.Length / 2];
-                
+                ++iter;
+                int[] next = new int[v.Length / 2 + v.Length % 2];
                 for (int i = 0; i < next.Length; ++i)
                 {
-                    threads.Add(new Thread(() => addElements(v, i * 2, next)));
-                    Console.WriteLine(i * 2);
+                    int idx = i * 2;
+                    threads.Add(new Thread(() => addElements(v, next, idx, iter)));
                 }
 
                 foreach (Thread thr in threads)
@@ -34,21 +39,26 @@ namespace ParallelAdds
                 foreach (Thread thr in threads)
                     thr.Join();
 
-
-                // folosesc o bariera
-
+                threads.Clear();
                 v = next;
             }
 
-            //ThreadPool.QueueUserWorkItem(new ParameterizedThreadStart(v));
+            FileStream fileStream = new FileStream("./output.out", FileMode.Create, FileAccess.Write);
+
+            streamWriter.Flush();
+            streamWriter.BaseStream.Seek(0, SeekOrigin.Begin);
+            streamWriter.BaseStream.CopyTo(fileStream);
         }
 
-
-        static void addElements(int[] v, int idx, int[] next)
+        static void addElements(int[] v, int[] next, int idx, int iter)
         {
-            int sum = v[idx] + v[idx + 1];
+            int sum = v[idx] + ((idx + 1 < v.Length) ? v[idx + 1] : 0);
             next[idx / 2] = sum;
-        }
 
+            lock (streamWriter)
+            {
+                streamWriter.WriteLine("Iterația {0} : v[{1}] + v[{2}] = {3}", iter, idx, idx + 1, next[idx / 2]);
+            }
+        }
     }
 }
