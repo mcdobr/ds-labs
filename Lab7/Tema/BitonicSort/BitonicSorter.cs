@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
+/*
+ * La fel de bine în loc de Task.Factory.StartNew puteam să creez câte un thread nou
+ * cu expresii lambda și în loc să dau taskA.wait() să dau thread1.join() 
+ */
 namespace BitonicSort
 {
     class BitonicSorter
     {
+
         public const bool ASCENDING = true, DESCENDING = false;
 
         public void sort(int[] v, bool direction = true)
@@ -19,24 +25,40 @@ namespace BitonicSort
 
         private void bitonicSort(int[] v, bool direction, int lo, int hi)
         {
+            Console.WriteLine("Started bitonicSort(lo={0}, hi={1}) on Thread{2}", lo, hi, Thread.CurrentThread.ManagedThreadId);
+
             if (lo == hi)
                 return;
 
             int mid = (lo + hi) / 2;
-            bitonicSort(v, ASCENDING, lo, mid);
-            bitonicSort(v, DESCENDING, mid + 1, hi);
+            Task sortLeft = Task.Factory.StartNew(() => bitonicSort(v, ASCENDING, lo, mid));
+            Task sortRight = Task.Factory.StartNew(() => bitonicSort(v, DESCENDING, mid + 1, hi));
+
+            sortLeft.Wait();
+            sortRight.Wait();
+
             bitonicMerge(v, direction, lo, hi);
+
+            Console.WriteLine("Ended bitonicSort(lo={0}, hi={1}) on Thread{2}", lo, hi, Thread.CurrentThread.ManagedThreadId);
         }
         
         private void bitonicMerge(int[] v, bool direction, int lo, int hi)
         {
+            Console.WriteLine("Started bitonicMerge(lo={0}, hi={1}) on Thread{2}", lo, hi, Thread.CurrentThread.ManagedThreadId);
+
             if (lo == hi)
                 return;
 
             int mid = (lo + hi) / 2;
             bitonicCompare(v, direction, lo, hi);
-            bitonicMerge(v, direction, lo, mid);
-            bitonicMerge(v, direction, mid + 1, hi);
+
+            Task mergeLeft = Task.Factory.StartNew(() => bitonicMerge(v, direction, lo, mid));
+            Task mergeRight = Task.Factory.StartNew(() => bitonicMerge(v, direction, mid + 1, hi));
+
+            mergeLeft.Wait();
+            mergeRight.Wait();
+
+            Console.WriteLine("Ended bitonicMerge(lo={0}, hi={1}) on Thread{2}", lo, hi, Thread.CurrentThread.ManagedThreadId);
         }
 
         private void bitonicCompare(int[] v, bool direction, int lo, int hi)
@@ -63,19 +85,15 @@ namespace BitonicSort
 
         static void Main(string[] args)
         {
-            int[] v = new int[] { 3, 7, 4, 8, 6, 2, 5, 1 };
-            BitonicSorter bitonicSorter = new BitonicSorter();
-
             Random rng = new Random();
-            v = new int[64];
+            int[] v = new int[64];
             for (int i = 0; i < v.Length; ++i)
                 v[i] = rng.Next(1 << 10);
 
 
+            BitonicSorter bitonicSorter = new BitonicSorter();
             bitonicSorter.sort(v);
-
-           
-
+            
             Console.WriteLine("[{0}]", string.Join(", ", v));
         }
     }
