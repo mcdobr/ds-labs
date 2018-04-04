@@ -14,6 +14,7 @@ namespace BitonicSort
 {
     class BitonicSorter
     {
+        private static int nrElements = 65536;
 
         public const bool ASCENDING = true, DESCENDING = false;
 
@@ -85,11 +86,11 @@ namespace BitonicSort
 
         static void Main(string[] args)
         {
-            Random rng = new Random();
-            int[] v = new int[64];
+            //Random rng = new Random();
+            int[] v = new int[nrElements];
             for (int i = 0; i < v.Length; ++i)
-                v[i] = rng.Next(1 << 10);
-
+                //v[i] = rng.Next(1 << 10);
+                v[i] = nrElements - i;
 
             BitonicSorter bitonicSorter = new BitonicSorter();
             bitonicSorter.sort(v);
