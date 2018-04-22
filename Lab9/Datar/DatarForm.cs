@@ -15,7 +15,8 @@ namespace Datar
     {
         private const String CONN_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\mircea\Source\Repos\ds-work\Lab9\Datar\DistributedSystemsDB.mdf;Integrated Security=True;Connect Timeout=30";
         private SqlConnection conn;
-        private SqlDataAdapter customerDataAdapter;
+        private SqlDataAdapter dataAdapter;
+        private SqlCommandBuilder commandBuilder;
         private DataTable table = new DataTable("Customers");
 
         public DatarForm()
@@ -31,8 +32,11 @@ namespace Datar
             
             dataGridView.DataSource = table;
 
-            customerDataAdapter = new SqlDataAdapter("SELECT * FROM Customers;", conn);
-            customerDataAdapter.Fill(table);
+            dataAdapter = new SqlDataAdapter("SELECT * FROM Customers;", conn);
+            commandBuilder = new SqlCommandBuilder(dataAdapter);
+            
+
+            dataAdapter.Fill(table);
 
         }
 
@@ -43,7 +47,7 @@ namespace Datar
 
         private void commitButton_Click(object sender, EventArgs e)
         {
-            customerDataAdapter.Update(table);
+            dataAdapter.Update(table);
         }
     }
 }
