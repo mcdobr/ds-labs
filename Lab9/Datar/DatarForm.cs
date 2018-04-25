@@ -17,7 +17,7 @@ namespace Datar
         private SqlConnection conn;
         private SqlDataAdapter dataAdapter;
         private SqlCommandBuilder commandBuilder;
-        private DataTable table = new DataTable("Customers");
+        private DataTable table = new DataTable();
 
         public DatarForm()
         {
@@ -32,7 +32,12 @@ namespace Datar
             
             dataGridView.DataSource = table;
 
-            dataAdapter = new SqlDataAdapter("SELECT * FROM Customers;", conn);
+            String selectSql = "SELECT Customers.customerID, customerName, phoneNumber, birthday, Orders.orderID " +
+                    "FROM Customers INNER JOIN Orders ON Customers.customerID = Orders.customerID;";
+
+
+            /* Afiseaza utilizatorii care au macar o comanda */
+            dataAdapter = new SqlDataAdapter(selectSql, conn);
             commandBuilder = new SqlCommandBuilder(dataAdapter);
             
 
