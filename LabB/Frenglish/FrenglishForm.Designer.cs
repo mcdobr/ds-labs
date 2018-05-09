@@ -64,8 +64,10 @@
             // 
             this.languageCombobox.FormattingEnabled = true;
             this.languageCombobox.Items.AddRange(new object[] {
+            "de-DE",
             "en-GB",
-            "fr-FR"});
+            "fr-FR",
+            "ro-RO"});
             this.languageCombobox.Location = new System.Drawing.Point(121, 149);
             this.languageCombobox.Name = "languageCombobox";
             this.languageCombobox.Size = new System.Drawing.Size(121, 21);

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="hiButtonText" xml:space="preserve">
-    <value>Hi</value>
+    <value>Salut</value>
   </data>
   <data name="hiName" xml:space="preserve">
-    <value>Hello, {0}!</value>
+    <value>Hai salut, {0}!</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>Name</value>
+    <value>Nume</value>
   </data>
 </root>
